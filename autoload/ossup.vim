@@ -57,8 +57,33 @@ elseif g:oss_image_uploader_type ==# "qiniu"
         echoerr "Not set g:qiniu_image_uploader_bucket_domain"
         finish
     endif
+elseif g:oss_image_uploader_type ==# "net"
+    if !exists("g:net_image_uploader_access_key")
+        echoerr "Not set g:net_image_uploader_access_key"
+        finish
+    endif
+
+    if !exists("g:net_image_uploader_secret_key")
+        echoerr "Not set g:net_image_uploader_secret_key"
+        finish
+    endif
+
+    if !exists("g:net_image_uploader_end_point")
+        echoerr "Not set g:net_image_uploader_end_point"
+        finish
+    endif
+
+    if !exists("g:net_image_uploader_bucket_name")
+        echoerr "Not set g:net_image_uploader_bucket_name"
+        finish
+    endif
+
+    if !exists("g:net_image_uploader_bucket_domain")
+        echoerr "Not set g:net_image_uploader_bucket_domain"
+        finish
+    endif
 else
-    echoerr "g:oss_image_uploader_type can only be ali or qiniu"
+    echoerr "g:oss_image_uploader_type can only be 'ali', 'qiniu' or 'net'"
     finish
 endif
 

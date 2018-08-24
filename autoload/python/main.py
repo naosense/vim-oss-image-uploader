@@ -2,9 +2,10 @@
 
 import os
 import re
-import vim
-import utils
 
+import vim
+
+import utils
 
 IMAGE_PATTERN = re.compile(r'!\[.*\]\((.*)\)')
 
@@ -12,6 +13,7 @@ oss_type = vim.eval('g:oss_image_uploader_type')
 
 is_ali = (oss_type == 'ali')
 is_qiniu = (oss_type == 'qiniu')
+is_net = (oss_type == 'net')
 
 access_key = None
 secret_key = None
@@ -32,6 +34,13 @@ elif is_qiniu:
     secret_key = vim.eval('g:qiniu_image_uploader_secret_key')
     bucket_name = vim.eval('g:qiniu_image_uploader_bucket_name')
     bucket_domain = vim.eval('g:qiniu_image_uploader_bucket_domain')
+elif is_net:
+    import net_uploader
+    access_key = vim.eval('g:net_image_uploader_access_key')
+    secret_key = vim.eval('g:net_image_uploader_secret_key')
+    end_point = vim.eval('g:net_image_uploader_end_point')
+    bucket_name = vim.eval('g:net_image_uploader_bucket_name')
+    bucket_domain = vim.eval('g:net_image_uploader_bucket_domain')
 
 image_cnt = 0
 
@@ -62,6 +71,8 @@ def upload_line(n, current_buffer):
                 key = ali_uploader.upload(access_key, secret_key, end_point, bucket_name, file_name, image_src)
             elif is_qiniu:
                 key = qiniu_uploader.upload(access_key, secret_key, bucket_name, file_name, image_src)
+            elif is_net:
+                key = net_uploader.upload(access_key, secret_key, end_point, bucket_name, file_name, image_src)
 
             current_buffer[n - 1] = line_str.replace(image_src, bucket_domain + '/' + key)
             global image_cnt

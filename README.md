@@ -1,4 +1,4 @@
-## Vim Markdown 图片上传插件（已支持阿里云、七牛）
+## Vim Markdown 图片上传插件（已支持阿里云、七牛、网易云）
 
 主要是为了写markdown时方便图片的上传，不必打开浏览器，执行一系列重复动作：上传图片-复制外链-替换文件中图片url等，现在一条命令就可完成上述工作，省下的时间喝杯茶吧！
 
@@ -14,6 +14,12 @@ pip install oss2
 
 ```
 pip install qiniu
+```
+
+如果你用的是网易云，请安装网易官方的[python-sdk](https://github.com/NetEase-Object-Storage/nos-python-sdk)，相应命令如下：
+
+```
+pip install nos-python-sdk
 ```
 
 当然你也可以下载安装包进行手动安装。
@@ -57,6 +63,20 @@ let g:qiniu_image_uploader_secret_key = ""
 let g:qiniu_image_uploader_bucket_name = ""
 " 存储空间的域名
 let g:qiniu_image_uploader_bucket_domain = ""
+
+" =========网易云配置变量=========
+" 设置oss服务类型为网易
+let g:oss_image_uploader_type = "net"
+" 设置你的Access Key
+let g:net_image_uploader_access_key = ""
+" 设置你的Secret Key
+let g:net_image_uploader_secret_key = ""
+" end point
+let g:net_image_uploader_end_point = ""
+" 要上传的存储空间名字
+let g:net_image_uploader_bucket_name = ""
+" 存储空间的域名
+let g:net_image_uploader_bucket_domain = ""
 ```
 
 在命令行输入`:OssUploadImg`或绑定一个快捷键：
